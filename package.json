@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "multer": "^1.4.4",
+    "random-string": "^0.2.0"
+  }
+}

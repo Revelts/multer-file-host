@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "f6779833-09a7-4d23-8446-0a6c379865e2",
+		"name": "Multer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Upload",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "erjTTcNTgCA3OGrtQYsCBQLXCCCff1IP61Z15A5dYSVftWTpgLrvCsNmWFveplAP",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "picture",
+							"type": "file",
+							"src": "/C:/Users/Revelt/Pictures/15135847_1283846888369253_965472750765972348_n.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/upload-single",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"upload-single"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
