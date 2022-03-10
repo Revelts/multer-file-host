@@ -40,10 +40,10 @@ const fileUpload = (req, res) => {
                 error.message = 'File Size is too large. Allowed file size is 200KB';
                 error.success = false;
             }
-            return res.status(500).json(error);
+            return res.status(400).json(error);
         } else {
             if (!req.file) {
-                return res.status(500).json('file not found');
+                return res.status(400).json('file not found');
             }
             res.status(200).json({
                 success: true,
