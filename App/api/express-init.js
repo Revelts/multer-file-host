@@ -3,6 +3,7 @@ const app = require('express')();
 const randomString = require('random-string');
 const multer = require('../config/multer-config');
 const checkApiKey = require('../config/check-api-key');
+const fileUpload = require('../config/multer-config');
 
 const notifyConnect = () => {
     console.log(`SERVER API CONNECTED TO ${process.env.EXPRESS_API_HOST}:${process.env.EXPRESS_API_PORT}`);
@@ -17,10 +18,7 @@ const initiateExpress = () => {
     
     app.use(express.static(__dirname + '/public'));
     app.use('/uploads', express.static('uploads'));
-    app.post('/upload-single', multer.single('picture'), checkApiKey, function (req, res, next) {
-        let response = req.file.path;
-        return res.send(response)
-    });
+    app.post('/upload-single', checkApiKey, fileUpload);
     app.listen(process.env.EXPRESS_API_PORT, process.env.EXPRESS_API_HOST, notifyConnect);
 }
 

@@ -9,6 +9,49 @@ const storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + uniqueSuffix + '.' + indexOfString);
     }
 });
-const upload = multer({ storage });
 
-module.exports = upload
+
+let fileFilter = function (req, file, cb) {
+    const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png'];
+    if (allowedMimes.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        cb({
+            success: false,
+            message: 'Invalid file type. Only jpg, png image files are allowed.'
+        }, false);
+    }
+};
+
+let obj = {
+    storage: storage,
+    limits: {
+        fileSize: 200 * 1024 * 1024
+},
+    fileFilter: fileFilter
+};
+
+const upload = multer(obj).single('picture');
+
+const fileUpload = (req, res) => {
+    upload(req, res, function (error) {
+        if (error) { 
+            if (error.code == 'LIMIT_FILE_SIZE') {
+                error.message = 'File Size is too large. Allowed file size is 200KB';
+                error.success = false;
+            }
+            return res.status(500).json(error);
+        } else {
+            if (!req.file) {
+                return res.status(500).json('file not found');
+            }
+            res.status(200).json({
+                success: true,
+                message: 'File uploaded successfully!',
+                path: req.file.path
+            });
+        }
+    })
+};
+
+module.exports = fileUpload
